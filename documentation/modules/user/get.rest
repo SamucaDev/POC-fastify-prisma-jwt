@@ -1,0 +1,6 @@
+@url=http://localhost:3000
+@id=clos34n4b0000q8bvlty5kmrj
+
+GET {{url}}/api/users/{{id}}
+Content-Type: application/json
+
