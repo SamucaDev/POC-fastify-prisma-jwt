@@ -76,7 +76,20 @@ export async function login(req: FastifyRequest<{Body: LoginUserInput}>, reply: 
     path: '/',
     httpOnly: true,
     secure: true,
+    maxAge: 10
   })
 
   return { accessToken: token }
+}
+
+export async function getUsers(req: FastifyRequest, reply: FastifyReply) {
+  const users = await prisma.user.findMany({
+    select: {
+      name: true,
+      id: true,
+      email: true
+    }
+  });
+  
+  return reply.status(200).send(users);
 }

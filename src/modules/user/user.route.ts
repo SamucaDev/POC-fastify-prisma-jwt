@@ -1,6 +1,6 @@
 import { FastifyInstance, FastifyRequest, FastifyReply } from 'fastify'
 import { $ref } from './user.schema'
-import { createUser, findUser, login } from './user.controller'
+import { createUser, findUser, getUsers, login } from './user.controller'
 
 export async function userRoutes(app: FastifyInstance) {
   app.get('/:id', {
@@ -8,7 +8,8 @@ export async function userRoutes(app: FastifyInstance) {
       response:{
         200: $ref('findUserSchema')
       }
-    }
+    },
+    preHandler: [app.authenticate]
   }, findUser)
 
   app.post(
@@ -36,6 +37,15 @@ export async function userRoutes(app: FastifyInstance) {
     },
     login,
   )
+
+  app.get('/', {
+    schema: {
+      response: {
+        200: $ref('getUsersSchema'),
+      }
+    },
+    preHandler: [app.authenticate]
+  }, getUsers)
 
   app.delete('/logout', () => {})
 

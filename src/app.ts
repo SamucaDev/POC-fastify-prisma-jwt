@@ -1,4 +1,4 @@
-import fastify from 'fastify'
+import fastify, { FastifyReply, FastifyRequest } from 'fastify'
 import dotenv from 'dotenv';
 import { userRoutes } from './modules/user/user.route'
 import { userSchemas } from './modules/user/user.schema';
@@ -10,15 +10,29 @@ dotenv.config();
 const server = fastify({ logger: false })
 
 server.register(fjwt, { secret: process.env.JWT_SECRET })
+
 server.addHook('preHandler', (req, res, next) => {
   req.jwt = server.jwt
-  console.log('Eu passo aqui em todas as etapas da requisição');
   return next()
 })
+
 server.register(fCookie, {
-  secret: 'some-secret-key',
+  secret: process.env.COOKIE_SECRET,
   hook: 'preHandler',
 })
+
+server.decorate(
+  'authenticate',
+  async (req: FastifyRequest, reply: FastifyReply) => {
+    const token = req.cookies.access_token
+
+    if (!token) {
+      return reply.status(401).send({ message: 'Authentication required' })
+    }
+    const decoded = req.jwt.verify<FastifyJWT['user']>(token)
+    req.user = decoded
+  },
+)
 
 for (let schema of [...userSchemas]) server.addSchema(schema)
 

@@ -33,6 +33,15 @@ const findUserSchema = z.object({
   name: z.string()
 });
 
+const getUsersSchema = z.array(
+  z.object({
+    id: z.string(),
+    email: z.string(),
+    name: z.string()
+  })
+);
+
+
 export type CreateUserInput = z.infer<typeof createUserSchema>
 export type LoginUserInput = z.infer<typeof loginSchema>
 
@@ -42,5 +51,6 @@ export const { schemas: userSchemas, $ref } = buildJsonSchemas({
   createUserResponseSchema,
   loginSchema,
   loginResponseSchema,
-  findUserSchema
+  findUserSchema,
+  getUsersSchema
 })
