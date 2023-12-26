@@ -4,7 +4,7 @@ POST {{url}}/api/users
 Content-Type: application/json
 
 {
-  "email": "samuel@email.com",
+  "email": " sarita@email.com",
   "password": "muda1231",
-  "name": "Samuel Rodrigues"
+  "name": "Sarita Rodrigues"
 }

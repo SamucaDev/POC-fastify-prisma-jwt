@@ -1,7 +1,7 @@
 @url=http://localhost:3000
-@id=clos34n4b0000q8bvlty5kmrj
-@Bearer=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImNsb3MzNG40YjAwMDBxOGJ2bHR5NWttcmoiLCJlbWFpbCI6InNhbXVlbEBlbWFpbC5jb20iLCJuYW1lIjoiU2FtdWVsIFJvZHJpZ3VlcyIsImlhdCI6MTcwMDE0MzE4NH0.VO4ug0kIfu3nxsFMtVaYgT6JIKDqGEYIA2Ga3bG5Spw
+@id=clq7i8k6400008uahqefncg7g
+@token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImNscTdpOGs2NDAwMDA4dWFocWVmbmNnN2ciLCJlbWFpbCI6InNhbXVlbEBlbWFpbC5jb20iLCJuYW1lIjoiU2FtdWVsIFJvZHJpZ3VlcyIsImlhdCI6MTcwMzYxNzg4MiwiZXhwIjoxNzAzNjE3OTQyfQ.GepMZBJA_dVqJSpy0RKTIYZX0GPAo5BW27bvrYKDJIs
 
 GET {{url}}/api/users/{{id}}
 Content-Type: application/json
-Cookie: access_token={{Bearer}}
+Authorization: Bearer {{token}}

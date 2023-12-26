@@ -1,6 +1,6 @@
 @url=http://localhost:3000
 
-POST {{url}}/api/users/login
+POST {{url}}/api/auth/login
 Content-Type: application/json
 
 {

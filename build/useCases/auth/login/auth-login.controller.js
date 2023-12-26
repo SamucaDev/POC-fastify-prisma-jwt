@@ -12,54 +12,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.login = exports.findUser = exports.createUser = void 0;
+exports.login = void 0;
 const bcrypt_1 = __importDefault(require("bcrypt"));
-const prisma_1 = __importDefault(require("../../utils/prisma"));
-function createUser(req, reply) {
-    return __awaiter(this, void 0, void 0, function* () {
-        const SALT_ROUNDS = 10;
-        const { password, email, name } = req.body;
-        const user = yield prisma_1.default.user.findUnique({
-            where: {
-                email: email,
-            },
-        });
-        if (user) {
-            return reply.code(401).send({
-                message: 'User already exists with this email',
-            });
-        }
-        try {
-            const hash = yield bcrypt_1.default.hash(password, SALT_ROUNDS);
-            const user = yield prisma_1.default.user.create({
-                data: {
-                    password: hash,
-                    email,
-                    name,
-                },
-            });
-            return reply.code(201).send(user);
-        }
-        catch (e) {
-            return reply.code(500).send(e);
-        }
-    });
-}
-exports.createUser = createUser;
-function findUser(req, reply) {
-    return __awaiter(this, void 0, void 0, function* () {
-        const { params } = req;
-        const { id } = params;
-        const user = yield prisma_1.default.user.findUnique({
-            where: {
-                id
-            }
-        });
-        return reply.code(200).send(user);
-    });
-}
-exports.findUser = findUser;
-;
+const prisma_1 = __importDefault(require("../../../utils/prisma"));
 function login(req, reply) {
     return __awaiter(this, void 0, void 0, function* () {
         const { email, password } = req.body;
@@ -80,6 +35,7 @@ function login(req, reply) {
             path: '/',
             httpOnly: true,
             secure: true,
+            maxAge: 10
         });
         return { accessToken: token };
     });

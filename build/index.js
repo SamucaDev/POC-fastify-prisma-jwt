@@ -13,6 +13,5 @@ server.listen({ port: 3000 }, (err, address) => {
         console.error(err);
         process.exit(1);
     }
-    console.log(address, 'ai calica');
     console.log(`Started server at ${address}`);
 });
