@@ -1,4 +1,6 @@
-import { User } from "../interfaces/user.interface";
+import FunctionResponse from "../interfaces/function-response.interface";
+import { PrivateUser, User } from "../interfaces/user.interface";
+import HttpStatus from "../utils/http-status";
 import prisma from "../utils/prisma";
 
 const model = prisma.user;
@@ -18,20 +20,47 @@ export const create = async (userObject: {
 export const update = () => {};
 
 export const find = async (
-  query: { email: string } | { id: string },
-  includePassword: boolean = false
-): Promise<User | null> => {
+  query: { email: string } | { id: string }
+): Promise<FunctionResponse<User>> => {
   const user = await model.findUnique({
     where: query,
   });
-
-  if (user && !includePassword) {
-    const { password, ...userWithoutPassword } = user;
-    return userWithoutPassword;
+  
+  if(!user){
+    return {
+      error: {
+        status: HttpStatus.NOT_FOUND,
+        friendlyMessage: 'User not found'
+      }
+    }
   }
 
-  return user;
+  const { password, ...userWithoutPassword } = user;
+  
+  return { data: userWithoutPassword };
 };
+  
+export const findPrivateInformation = async (
+  query: { email: string } | { id: string }
+): Promise<FunctionResponse<PrivateUser>> => {
+  const user = await model.findUnique({
+    where: query,
+  });
+  
+  if(!user){
+    return {
+      error: {
+        status: HttpStatus.NOT_FOUND,
+        friendlyMessage: 'User not found'
+      }
+    }
+  }
+
+  return {
+    data: user
+  };
+};
+
 
 export const get = async () => {
   const users = await model.findMany({

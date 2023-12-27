@@ -13,12 +13,21 @@ const login = async (
   password: string,
   jwtIntance: JWT
 ): Promise<FunctionResponse<LoginUseCase>> => {
-  const user = await userRepository.find({ email: email }, true);
+  const user = await userRepository.findPrivateInformation({ email: email });
+  
+  if(user.error){
+    return {
+      error:{
+        status: user.error.status,
+        friendlyMessage: user.error.friendlyMessage
+      }
+    }
+  }
 
   const isMatch =
-    user && user.password && (await comparePassword(password, user.password));
+    user.data && user.data.password && (await comparePassword(password, user.data.password));
 
-  if (!user || !isMatch) {
+  if (!user.data || !isMatch) {
     return {
       error: {
         friendlyMessage: "Invalid email or password",
@@ -28,12 +37,12 @@ const login = async (
   }
 
   const payload = {
-    id: user.id,
-    email: user.email,
-    name: user.name,
+    id: user.data.id,
+    email: user.data.email,
+    name: user.data.name,
   };
 
-  const token = jwtIntance.sign(payload, {expiresIn: '1m'});
+  const token = jwtIntance.sign(payload, {expiresIn: '1h'});
 
   return { data: { accessToken: token } };
 };
