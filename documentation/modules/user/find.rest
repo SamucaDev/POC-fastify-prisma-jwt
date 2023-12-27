@@ -1,6 +1,6 @@
-@url=http://localhost:3000
-@id=clq7i8k6400008uahqefncg7g
-@token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImNscTdpOGs2NDAwMDA4dWFocWVmbmNnN2ciLCJlbWFpbCI6InNhbXVlbEBlbWFpbC5jb20iLCJuYW1lIjoiU2FtdWVsIFJvZHJpZ3VlcyIsImlhdCI6MTcwMzYxNzg4MiwiZXhwIjoxNzAzNjE3OTQyfQ.GepMZBJA_dVqJSpy0RKTIYZX0GPAo5BW27bvrYKDJIs
+@url=
+@id=
+@token=
 
 GET {{url}}/api/users/{{id}}
 Content-Type: application/json

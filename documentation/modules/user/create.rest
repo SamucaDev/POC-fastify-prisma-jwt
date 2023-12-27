@@ -1,10 +1,10 @@
-@url=http://localhost:3000
+@url=
 
 POST {{url}}/api/users
 Content-Type: application/json
 
 {
-  "email": " sarita@email.com",
-  "password": "muda1231",
-  "name": "Sarita Rodrigues"
+  "email": "",
+  "password": "",
+  "name": ""
 }

@@ -22,7 +22,8 @@ const createUser = async (
     
     return reply.code(HttpStatus.CREATED).send(user.data);
   } catch (e) {
-    return reply.code(HttpStatus.INTERNAL_SERVER_ERROR).send(e);
+    console.error(e);
+    return reply.code(HttpStatus.INTERNAL_SERVER_ERROR).send('Internal Server Error');
   }
 };
 
@@ -42,7 +43,8 @@ const findUser = async (
   
     return reply.code(HttpStatus.OK).send(user.data);
   } catch(e) { 
-    return reply.code(HttpStatus.INTERNAL_SERVER_ERROR).send(e);
+    console.error(e);
+    return reply.code(HttpStatus.INTERNAL_SERVER_ERROR).send('Internal Server Error');
   }
 };
 
@@ -59,7 +61,8 @@ const findAllUser = async (
 
     return reply.code(HttpStatus.OK).send(users.data);
   } catch (e) {
-    return reply.code(HttpStatus.INTERNAL_SERVER_ERROR).send(e);
+    console.error(e);
+    return reply.code(HttpStatus.INTERNAL_SERVER_ERROR).send('Internal Server Error');
   }
 } 
 

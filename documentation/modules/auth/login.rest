@@ -1,9 +1,9 @@
-@url=http://localhost:3000
+@url=
 
 POST {{url}}/api/auth/login
 Content-Type: application/json
 
 {
-  "email": "samuel@email.com",
-  "password": "muda1231"
+  "email": "",
+  "password": ""
 }
