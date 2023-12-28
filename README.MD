@@ -5,11 +5,12 @@ My goal with this project is to create a Fastify project that is responsible for
 
 ## :hammer: Quick start
 
-| Dependencies   | Version       |
-| -------------  | ------------- |
-| Node           | >= 18         | 
-| Npm            | >= 8          | 
-| Docker         | 24.x          |
+| Dependencies    | Version       |
+| -------------   | ------------- |
+| Node            | >= 18         | 
+| Npm             | >= 8          | 
+| Docker          | 24.x          |
+| Docker Composer | >= 1.29       |
 
 - Use these commands to install and start the application
 
