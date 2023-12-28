@@ -21,8 +21,14 @@ My goal with this project is to create a Fastify project that is responsible for
 
 ## :bar_chart: Project
 The project has a simple user system able to do all the user stuff, creation, authentication and management, using famous patterns of marketing and OWASP rules.
+                       
+Therefore the authentication was made using JWT pattern, all the private routes have to send the Bearer token to get access to the application. The user's password is encrypted and saved in safety.
 
-Therefore the authentication was made using JWT pattern, all the private routes have to send the Bearer token to get access to the application.
+**Routes:**
+- Login
+- Create User
+- Find User
+- Get Users
 
 
 ## :file_folder: Folders Structure
