@@ -11,12 +11,20 @@ import {
 
 dotenv.config();
 
-const server = fastify({ logger: true })
+const buildFastify = () => {
+  const server = fastify({ logger: true })
 
-configJWT(server);
-setAuthMiddleware(server);
-setSchemas(server);
-setRoutes(server);
-setListeners(server);
+  configJWT(server);
+  setAuthMiddleware(server);
+  setSchemas(server);
+  setRoutes(server);
+  setListeners(server);
+  
+  start(server);
 
-start(server);
+  return server;
+};
+
+buildFastify();
+
+export default buildFastify;
