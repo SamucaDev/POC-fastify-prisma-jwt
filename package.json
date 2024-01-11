@@ -3,10 +3,16 @@
   "version": "1.0.0",
   "description": "",
   "main": "app.js",
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "tsx watch src/app.ts",
-    "build": "tsc -p tsconfig.json && node build/index.js"
+    "build": "tsc -p tsconfig.json && node build/index.js",
+    "database:rollback": "npx prisma migrate reset --force",
+    "docker:up": "docker-compose up -d",
+    "docker:down": "docker-compose down",
+    "test:setup": "npm run docker:up && env-cmd -f .env.test npx prisma migrate deploy",
+    "test:teardown": "npm run database:rollback && npm run docker:down",
+    "test": "npm run test:setup && jest -i --runInBand && npm run test:teardown"
   },
   "keywords": [],
   "author": "",
@@ -19,13 +25,24 @@
     "dotenv": "^16.3.1",
     "fastify": "^4.24.3",
     "fastify-zod": "^1.4.0",
-    "zod": "^3.22.4",
-    "tsx": "^3.12.10"
+    "tsx": "^3.12.10",
+    "zod": "^3.22.4"
   },
   "devDependencies": {
+    "@babel/preset-typescript": "^7.23.3",
     "@types/bcrypt": "^5.0.2",
+    "@types/chance": "^1.1.6",
+    "@types/jest": "^29.5.11",
     "@types/node": "^20.9.0",
+    "@types/sinon": "^17.0.3",
+    "@types/supertest": "^6.0.2",
+    "chance": "^1.1.11",
+    "env-cmd": "^10.1.0",
+    "jest": "^29.7.0",
     "prisma": "^5.5.2",
+    "sinon": "^17.0.1",
+    "supertest": "^6.3.3",
+    "ts-jest": "^29.1.1",
     "ts-node": "^10.9.1",
     "typescript": "^5.2.2"
   }

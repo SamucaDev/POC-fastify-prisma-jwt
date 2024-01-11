@@ -1,6 +1,7 @@
-import { FastifyJWT, TokenOrHeader } from "@fastify/jwt";
+import { FastifyJWT } from "@fastify/jwt";
 import { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
 import HttpStatus from "../utils/http-status";
+import { handlerAuthenticate } from "../services/jwt/jwt.service";
 
 const setAuthenticateJWT = (server: FastifyInstance) => {
   server.decorate(
@@ -11,10 +12,7 @@ const setAuthenticateJWT = (server: FastifyInstance) => {
         if (!token) {
           return reply.status(HttpStatus.UNAUTHORIZED).send({ message: "Authentication required" });
         }
-        const decoded = req.jwt.verify<FastifyJWT["user"]>(
-          token.replace("Bearer ", ""),
-          { maxAge: "1h" }
-        );
+        const decoded = handlerAuthenticate(token, req.jwt)
 
         req.user = decoded;
       } catch (error) {
