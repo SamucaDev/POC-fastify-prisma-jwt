@@ -1,9 +1,10 @@
 import fjwt from "@fastify/jwt";
-import {
+import fastify, {
   FastifyInstance
 } from "fastify";
-import { routes } from "./routes.provider";
-import { schemas } from "./schemas.provider";
+import { routes } from "./routes.service";
+import { schemas } from "./schemas.service";
+import setAuthMiddleware from '../../middlewares/auth.middleware';
 
 export const setSchemas = (server: FastifyInstance) => {
   for (let schema of schemas) server.addSchema(schema);
@@ -44,4 +45,16 @@ export const setListeners = (server: FastifyInstance) => {
       process.exit(0);
     });
   });
+};
+
+export const buildFastify = () => {
+  const server = fastify({ logger: false })
+
+  configJWT(server);
+  setAuthMiddleware(server);
+  setSchemas(server);
+  setRoutes(server);
+  setListeners(server);
+  
+  return server;
 };

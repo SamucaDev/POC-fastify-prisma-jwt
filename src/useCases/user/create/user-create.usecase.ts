@@ -8,7 +8,7 @@ const create = async (userObject: { password: string, email: string, name: strin
     email: userObject.email,
   });
 
-  if (userExists) {
+  if (userExists.data) {
     return {
       error: {
         message: "User already exists with this email",

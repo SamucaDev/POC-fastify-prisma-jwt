@@ -1,22 +1,11 @@
 import dotenv from 'dotenv';
-import fastify from 'fastify';
-import setAuthMiddleware from './middlewares/auth.middleware';
-import { 
-  configJWT, 
-  setListeners, 
-  setRoutes, 
-  setSchemas, 
+import {
+  buildFastify,
   start
-} from './providers/server/application.provider';
+} from './services/server/application.service';
 
-dotenv.config();
 
-const server = fastify({ logger: true })
+dotenv.config({ path: '../.env.test'});
 
-configJWT(server);
-setAuthMiddleware(server);
-setSchemas(server);
-setRoutes(server);
-setListeners(server);
-
+const server = buildFastify();
 start(server);

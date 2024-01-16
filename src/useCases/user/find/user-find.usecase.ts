@@ -16,7 +16,7 @@ const find = async (id: string): Promise<FunctionResponse<User>> => {
   }
 
   return {
-    data: user
+    data: user.data
   };
 };
 

@@ -3,6 +3,7 @@ import FunctionResponse from "../../../interfaces/function-response.interface";
 import * as userRepository from "../../../repositories/user.repository";
 import { comparePassword } from "../../../utils/encryption";
 import HttpStatus from "../../../utils/http-status";
+import { signToken } from "../../../services/jwt/jwt.service";
 
 interface LoginUseCase {
   accessToken: string;
@@ -42,7 +43,7 @@ const login = async (
     name: user.data.name,
   };
 
-  const token = jwtIntance.sign(payload, {expiresIn: '1h'});
+  const token = signToken(payload, jwtIntance);
 
   return { data: { accessToken: token } };
 };
