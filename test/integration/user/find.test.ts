@@ -18,8 +18,11 @@ describe('Find user test', () => {
     await fastify.ready();
   });
 
-  afterAll(async () => {
+  afterEach(() => {
     sinon.restore();
+  });
+
+  afterAll(async () => {
     await fastify.close();
   });
 
