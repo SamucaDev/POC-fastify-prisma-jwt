@@ -19,6 +19,7 @@ describe('Find user test', () => {
   });
 
   afterAll(async () => {
+    sinon.restore();
     await fastify.close();
   });
 

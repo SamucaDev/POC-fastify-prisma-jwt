@@ -8,7 +8,5 @@ export default {
   },
   transform: {
     '^.+\\.tsx?$': 'ts-jest',
-  },
-  globalSetup: './test/jest.setup.ts',
-  globalTeardown: './test/jest.teardown.ts'
+  }
 };
